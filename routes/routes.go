@@ -7,6 +7,7 @@ import (
 
 func router(r *gin.Engine) {
 	apiRouter := r.Group("/api")
+	apiRouter.GET("/healthcheck/:ping", controllers.Healthcheck)
 	apiRouter.GET("/students/:id", controllers.FindStudentById)
 	apiRouter.GET("/students/search/identity-number", controllers.FindStudentByIdentityNumber)
 	apiRouter.GET("/students", controllers.AllStudents)

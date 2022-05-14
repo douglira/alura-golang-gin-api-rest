@@ -12,6 +12,19 @@ import (
 	"gorm.io/gorm/clause"
 )
 
+func Healthcheck(c *gin.Context) {
+	ping := c.Param("ping")
+	if ping != "ping" {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "healthcheck error",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"data": "pong",
+	})
+}
+
 func AllStudents(c *gin.Context) {
 	var students []models.Student
 	database.DB.Find(&students)
