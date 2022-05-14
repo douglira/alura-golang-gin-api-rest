@@ -34,6 +34,14 @@ func RegisterStudent(c *gin.Context) {
 		})
 		return
 	}
+
+	if err := models.StudentValidator(&student); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
 	database.DB.Create(&student)
 	c.Writer.WriteHeader(http.StatusCreated)
 }
